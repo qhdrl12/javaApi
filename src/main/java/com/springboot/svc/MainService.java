@@ -9,7 +9,6 @@ import java.util.Map;
 public interface MainService {
     Map<String, Object> readExcel(String file_name);
     Map<String, Object> convertBinaryRedisData(String key);
-    Map<String, Object> dijkstraAlgorithm();
-
+    Map<String, Object> oracleDataBaseFindAll(String table);
     void readWatcha();
 }

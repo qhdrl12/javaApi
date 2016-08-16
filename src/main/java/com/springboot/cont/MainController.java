@@ -7,9 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- * Created by ibong-gi on 2016. 7. 27..
- */
 @Controller
 public class MainController {
 
@@ -38,13 +35,14 @@ public class MainController {
     }
 
     @RequestMapping(value="/searchRedis")
-    public void searchRedis(@RequestParam(value = "key", required = false) String key){
+    public String searchRedis(@RequestParam(value = "key", required = false) String key){
         mainService.convertBinaryRedisData(key);
+        return "index";
     }
 
-    @RequestMapping(value="/dijkstra")
-    public String dijkstra(){
-        mainService.dijkstraAlgorithm();
-        return "index";
+    @RequestMapping(value="/oracleFindAll")
+    public void oracleDataBaseFindAll(@RequestParam(value = "table", required = false) String table){
+        mainService.oracleDataBaseFindAll(table);
+//        System.out.println(empRepository.findAll());
     }
 }

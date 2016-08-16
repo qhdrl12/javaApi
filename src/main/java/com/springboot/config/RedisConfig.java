@@ -1,6 +1,7 @@
 package com.springboot.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,17 +18,30 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * Created by ibong-gi on 2016. 8. 10..
  */
 @Configuration
-@PropertySource("classpath:application.properties")
+//@PropertySource("classpath:application.properties")
+@ConfigurationProperties(prefix="spring.redis")
 public class RedisConfig {
 
-    @Value("${spring.redis.host}")
-    private String redis_host;
+//    @Value("${spring.redis.host}")
+    private String host;
 
-    @Value("${spring.redis.port}")
-    private int redis_port;
+//    @Value("${spring.redis.port}")
+    private int port;
 
-    @Value("${spring.redis.timeout}")
-    private int redis_timeout;
+//    @Value("${spring.redis.timeout}")
+    private int timeout;
+
+    public void setHost(String host){
+        this.host = host;
+    }
+
+    public void setPort(int port){
+        this.port = port;
+    }
+
+    public void setTimeout(int timeout){
+        this.timeout = timeout;
+    }
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -37,9 +51,9 @@ public class RedisConfig {
     @Bean
     public JedisConnectionFactory jedisConnectionFactory(){
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-        jedisConnectionFactory.setHostName(redis_host);
-        jedisConnectionFactory.setPort(redis_port);
-        jedisConnectionFactory.setTimeout(redis_timeout);
+        jedisConnectionFactory.setHostName(host);
+        jedisConnectionFactory.setPort(port);
+        jedisConnectionFactory.setTimeout(timeout);
         jedisConnectionFactory.setUsePool(true);
         jedisConnectionFactory.afterPropertiesSet();
         return jedisConnectionFactory;
@@ -57,11 +71,9 @@ public class RedisConfig {
         return redisTemplate;
     }
 
-
     @Bean
     public RedisCacheManager cacheManager(RedisTemplate redisTemplate){
         RedisCacheManager redisCacheManager = new RedisCacheManager(redisTemplate);
         return redisCacheManager;
     }
-
 }
