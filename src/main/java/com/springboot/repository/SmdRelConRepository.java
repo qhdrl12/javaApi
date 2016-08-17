@@ -9,9 +9,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 /**
  * Created by ibong-gi on 2016. 8. 17..
  */
-
 //JpaRepository
-public interface SmdRelConRepository extends JpaRepository<SmdRelCon, String> {
-//    Page<SmdRelCon> findAll(Pageable pageable);
-//    Page<SmdRelCon> findAllByOrderBySeqDesc(Pageable pageable);
+public interface SmdRelConRepository extends PagingAndSortingRepository<SmdRelCon, Long> {
+    Page<SmdRelCon> findAll(Pageable pageable);
+//    Page<SmdRelCon> findAllByOrderByDesc(Pageable pageable);
 }

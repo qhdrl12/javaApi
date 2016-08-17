@@ -1,12 +1,8 @@
 package com.springboot.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -14,9 +10,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-/**
- * Created by ibong-gi on 2016. 8. 10..
- */
 @Configuration
 @ConfigurationProperties(prefix="spring.redis")
 public class RedisConfig {

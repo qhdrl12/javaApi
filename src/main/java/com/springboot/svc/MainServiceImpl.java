@@ -107,17 +107,19 @@ public class MainServiceImpl implements MainService {
 //        if()
     }
 
-    public Map<String, Object> oracleDataBaseFindAll(String table){
+    public Map<String, Object> oracleDataBaseFindAll(String table, int size, int page){
         Map<String, Object> result_map = new HashMap<>();
 
 
-        List<SmdRelCon> list_map = smdRelConRepository.findAll();
+//        List<SmdRelCon> list_map = smdRelConRepository.findAll();
 
-//        Page<SmdRelCon> page = smdRelConRepository.findAll(new PageRequest(0, 10));
+        Page<SmdRelCon> list_map = smdRelConRepository.findAll(new PageRequest(0, 10));
+//        Page<SmdRelCon> list_map = smdRelConRepository.findAll(new PageRequest(size * (page-1) , size));
 
-        for(SmdRelCon smdRelCon : list_map){
-            logger.info(smdRelCon);
-        }
+        printPageData("sort", list_map);
+//        for(SmdRelCon smdRelCon : list_map){
+//            logger.info(smdRelCon);
+//        }
 //        printPageData("simple", page);
 
 //        page = smdRelConRepository.findAllByOrderBySeqDesc(new PageRequest(0, 10));
@@ -130,12 +132,12 @@ public class MainServiceImpl implements MainService {
         return result_map;
     }
 
-//    private void printPageData(String label, Page<SmdRelCon> page){
-//        if( page == null || page.getSize() <= 0 ) return;
-//
-//        for( int i = 0 ; i < page.getSize(); i++ ){
-//            SmdRelCon smdRelCon = page.getContent().get(i);
-//            System.out.println(smdRelCon);
-//        }
-//    }
+    private void printPageData(String label, Page<SmdRelCon> page){
+        if( page == null || page.getSize() <= 0 ) return;
+
+        for( int i = 0 ; i < page.getSize(); i++ ){
+            SmdRelCon smdRelCon = page.getContent().get(i);
+            System.out.println(smdRelCon);
+        }
+    }
 }
