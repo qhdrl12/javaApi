@@ -7,17 +7,17 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.springboot.domain.SmdRelCon;
 import com.springboot.redis.RedisService;
-import com.springboot.repository.EmpRepository;
+import com.springboot.repository.SmdRelConRepository;
 import com.springboot.run.ExcelMaker;
 import org.apache.log4j.Logger;
 
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import javax.sql.DataSource;
-import javax.xml.crypto.Data;
 
 /**
  * Created by ibong-gi on 2016. 8. 8..
@@ -30,8 +30,11 @@ public class MainServiceImpl implements MainService {
     @Autowired
     private RedisService redisService;
 
+//    @Autowired
+//    private EmpRepository empRepository;
+
     @Autowired
-    private EmpRepository empRepository;
+    private SmdRelConRepository smdRelConRepository;
 
     @Override
     public Map<String, Object> readExcel(String file_name) {
@@ -107,8 +110,32 @@ public class MainServiceImpl implements MainService {
     public Map<String, Object> oracleDataBaseFindAll(String table){
         Map<String, Object> result_map = new HashMap<>();
 
-        empRepository.findAll();
+
+        List<SmdRelCon> list_map = smdRelConRepository.findAll();
+
+//        Page<SmdRelCon> page = smdRelConRepository.findAll(new PageRequest(0, 10));
+
+        for(SmdRelCon smdRelCon : list_map){
+            logger.info(smdRelCon);
+        }
+//        printPageData("simple", page);
+
+//        page = smdRelConRepository.findAllByOrderBySeqDesc(new PageRequest(0, 10));
+
+//        printPageData("sort_seq_desc", page);
+//        for(SmdRelCon smdRelCon : list_map){
+//            logger.info(smdRelCon);
+//        }
 
         return result_map;
     }
+
+//    private void printPageData(String label, Page<SmdRelCon> page){
+//        if( page == null || page.getSize() <= 0 ) return;
+//
+//        for( int i = 0 ; i < page.getSize(); i++ ){
+//            SmdRelCon smdRelCon = page.getContent().get(i);
+//            System.out.println(smdRelCon);
+//        }
+//    }
 }

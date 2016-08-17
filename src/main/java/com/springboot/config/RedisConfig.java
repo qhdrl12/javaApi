@@ -18,17 +18,13 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * Created by ibong-gi on 2016. 8. 10..
  */
 @Configuration
-//@PropertySource("classpath:application.properties")
 @ConfigurationProperties(prefix="spring.redis")
 public class RedisConfig {
 
-//    @Value("${spring.redis.host}")
     private String host;
 
-//    @Value("${spring.redis.port}")
     private int port;
 
-//    @Value("${spring.redis.timeout}")
     private int timeout;
 
     public void setHost(String host){
