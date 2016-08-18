@@ -113,14 +113,9 @@ public class MainServiceImpl implements MainService {
 
 //        List<SmdRelCon> list_map = smdRelConRepository.findAll();
 
-        Page<SmdRelCon> list_map = smdRelConRepository.findAll(new PageRequest(0, 10));
-//        Page<SmdRelCon> list_map = smdRelConRepository.findAll(new PageRequest(size * (page-1) , size));
+        Page<SmdRelCon> list_map = smdRelConRepository.findAll(new PageRequest(page-1 , size));
 
-        printPageData("sort", list_map);
-//        for(SmdRelCon smdRelCon : list_map){
-//            logger.info(smdRelCon);
-//        }
-//        printPageData("simple", page);
+        printPageData("pageBasic", list_map);
 
 //        page = smdRelConRepository.findAllByOrderBySeqDesc(new PageRequest(0, 10));
 
@@ -133,11 +128,16 @@ public class MainServiceImpl implements MainService {
     }
 
     private void printPageData(String label, Page<SmdRelCon> page){
+        logger.info("[" + label + "] page  : " + page + " , page_cnt : " + page.getSize());
+        List<Map<String, Object>> propsList = new ArrayList<>();
+        Map<String, Object> props;
         if( page == null || page.getSize() <= 0 ) return;
 
         for( int i = 0 ; i < page.getSize(); i++ ){
+            props = new WeakHashMap<>();
             SmdRelCon smdRelCon = page.getContent().get(i);
-            System.out.println(smdRelCon);
+
+            logger.info("smdRelCon : " + smdRelCon.getCID() + " : " + smdRelCon.getRID() + " : " + smdRelCon.getFgCd() + " : " + smdRelCon.getRelScore());
         }
     }
 }
