@@ -5,6 +5,6 @@ import java.util.Map;
 public interface MainService {
     Map<String, Object> readExcel(String file_name);
     Map<String, Object> convertBinaryRedisData(String key);
-    Map<String, Object> oracleDataBaseFindAll(String table);
+    Map<String, Object> oracleDataBaseFindAll(String table, int size, int page);
     void readWatcha();
 }

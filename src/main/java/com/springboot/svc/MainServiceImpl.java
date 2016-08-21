@@ -107,7 +107,7 @@ public class MainServiceImpl implements MainService {
     public Map<String, Object> oracleDataBaseFindAll(String table){
         Map<String, Object> result_map = new HashMap<>();
 
-        logger.info(empRepository.findAll());
+        empRepository.findAll();
 
         return result_map;
     }

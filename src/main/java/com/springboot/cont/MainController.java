@@ -41,8 +41,11 @@ public class MainController {
     }
 
     @RequestMapping(value="/oracleFindAll")
-    public void oracleDataBaseFindAll(@RequestParam(value = "table", required = false) String table){
-        mainService.oracleDataBaseFindAll(table);
+    public void oracleDataBaseFindAll(@RequestParam(value = "table", required = false) String table,
+                                      @RequestParam(value = "size", defaultValue = "10") int size,
+                                      @RequestParam(value = "page", defaultValue = "1") int page){
+
+        mainService.oracleDataBaseFindAll(table, size, page);
 //        System.out.println(empRepository.findAll());
     }
 }
