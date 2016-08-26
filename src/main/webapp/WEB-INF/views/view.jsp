@@ -97,22 +97,22 @@
     </c:forEach>
 </table>
 
-<div class="bs-docs-example" >
-    <p class="well demo content1">
-        Dynamic content here.
-    </p>
-    <p class="demo demo1"></p>
-</div>
+<%--<div class="bs-docs-example" >--%>
+    <%--<p class="well demo content1">--%>
+        <%--Dynamic content here.--%>
+    <%--</p>--%>
+    <%--<p class="demo demo1"></p>--%>
+<%--</div>--%>
 
-    <script type="text/javascript">
-        $('.demo1').bootpag({
-            total: '${pageBlock}'
-        }).on("page", function(event, num){
-            console.dir(event);
-            $(".content1").html("Page " + num); // or some ajax content loading...
-            $(this).bootpag({total: '${totalPage}', maxVisible: 10});
-        });
-    </script>
+    <%--<script type="text/javascript">--%>
+        <%--$('.demo1').bootpag({--%>
+            <%--total: '${pageBlock}'--%>
+        <%--}).on("page", function(event, num){--%>
+            <%--console.dir(event);--%>
+            <%--$(".content1").html("Page " + num); // or some ajax content loading...--%>
+            <%--$(this).bootpag({total: '${totalPage}', maxVisible: 10});--%>
+        <%--});--%>
+    <%--</script>--%>
 </body>
 </html>
 
