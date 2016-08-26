@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<% String cp = request.getContextPath(); %>
+<%--<% String cp = request.getContextPath(); %>--%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -11,11 +11,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Data View</title>
 
-    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <%--<script type="text/javascript" src="<%=cp%>/resources/lib/jquery.bootpag.js"></script>--%>
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <%--<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>--%>
+    <%--<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>--%>
+    <%----%>
+    <%--<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">--%>
+    <%--<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">--%>
 
     <style type="text/css">
         p{
