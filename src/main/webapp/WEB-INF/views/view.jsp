@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%--<% String cp = request.getContextPath(); %>--%>
 
-<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -80,39 +77,39 @@
     </tr>
     <c:forEach items="${result}" var="entry" varStatus="mloop">
 
-            <c:forEach items="${entry.value}" var="item" varStatus="loop">
-                <tr>
-                    <td>
-                        <c:choose>
-                            <c:when test="${loop.index == 0}">
-                                ${entry.key}
-                            </c:when>
-                        </c:choose>
-                    </td>
+        <c:forEach items="${entry.value}" var="item" varStatus="loop">
+            <tr>
+                <td>
+                    <c:choose>
+                        <c:when test="${loop.index == 0}">
+                            ${entry.key}
+                        </c:when>
+                    </c:choose>
+                </td>
                 <c:forEach items="${item}" var="subEntry">
                     <td>${subEntry.value}</td>
                 </c:forEach>
-                </tr>
-            </c:forEach>
+            </tr>
+        </c:forEach>
     </c:forEach>
 </table>
 
 <%--<div class="bs-docs-example" >--%>
-    <%--<p class="well demo content1">--%>
-        <%--Dynamic content here.--%>
-    <%--</p>--%>
-    <%--<p class="demo demo1"></p>--%>
+<%--<p class="well demo content1">--%>
+<%--Dynamic content here.--%>
+<%--</p>--%>
+<%--<p class="demo demo1"></p>--%>
 <%--</div>--%>
 
-    <%--<script type="text/javascript">--%>
-        <%--$('.demo1').bootpag({--%>
-            <%--total: '${pageBlock}'--%>
-        <%--}).on("page", function(event, num){--%>
-            <%--console.dir(event);--%>
-            <%--$(".content1").html("Page " + num); // or some ajax content loading...--%>
-            <%--$(this).bootpag({total: '${totalPage}', maxVisible: 10});--%>
-        <%--});--%>
-    <%--</script>--%>
+<%--<script type="text/javascript">--%>
+<%--$('.demo1').bootpag({--%>
+<%--total: '${pageBlock}'--%>
+<%--}).on("page", function(event, num){--%>
+<%--console.dir(event);--%>
+<%--$(".content1").html("Page " + num); // or some ajax content loading...--%>
+<%--$(this).bootpag({total: '${totalPage}', maxVisible: 10});--%>
+<%--});--%>
+<%--</script>--%>
 </body>
 </html>
 
