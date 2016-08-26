@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Map;
+
 @Controller
 public class MainController {
 
@@ -46,6 +48,20 @@ public class MainController {
                                       @RequestParam(value = "page", defaultValue = "1") int page){
 
         mainService.oracleDataBaseFindAll(table, size, page);
-//        System.out.println(empRepository.findAll());
+    }
+
+    @RequestMapping(value="/searchSkpRef")
+    public String searchSkpRef(Model model,
+                               @RequestParam(value = "file_name", required = false) String file_name,
+                               @RequestParam(value = "id", required = false) String id){
+        System.out.println(file_name);
+
+        Map<String, Object> result = mainService.searchSkpRef(file_name, id);
+
+        result.remove("result");
+
+        model.addAttribute("result", result);
+
+        return "view";
     }
 }

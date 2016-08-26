@@ -7,8 +7,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.springboot.domain.CmsCon;
 import com.springboot.domain.SmdRelCon;
 import com.springboot.redis.RedisService;
+import com.springboot.repository.CmsConRepository;
 import com.springboot.repository.SmdRelConRepository;
 import com.springboot.run.ExcelMaker;
 import org.apache.log4j.Logger;
@@ -35,6 +37,9 @@ public class MainServiceImpl implements MainService {
 
     @Autowired
     private SmdRelConRepository smdRelConRepository;
+
+    @Autowired
+    private CmsConRepository cmsConRepository;
 
     @Override
     public Map<String, Object> readExcel(String file_name) {
@@ -117,13 +122,67 @@ public class MainServiceImpl implements MainService {
 
         printPageData("pageBasic", list_map);
 
-//        page = smdRelConRepository.findAllByOrderBySeqDesc(new PageRequest(0, 10));
+        return result_map;
+    }
 
-//        printPageData("sort_seq_desc", page);
-//        for(SmdRelCon smdRelCon : list_map){
-//            logger.info(smdRelCon);
-//        }
+    @Override
+    public Map<String, Object> searchSkpRef(String file_name, String id) {
+        Map<String, Object> result_map = new WeakHashMap<>();
+        Map<String, Object> vcms_map = new WeakHashMap<>();
+        Map<String, Object> sub_map;
 
+        List<Map<String, Object>> conList;
+        JSONParser parser = new JSONParser();
+
+        List<String> paramList = new ArrayList<String>();
+
+        paramList.add("100");
+        paramList.add("200");
+
+//        List<CmsCon> cmsConList = cmsConRepository.findMappingId(paramList);
+        List<CmsCon> cmsConList = cmsConRepository.findMappingIntg(paramList);
+        logger.info("cms total size : " + cmsConList.size());
+
+        for(CmsCon cmsCon : cmsConList){
+            vcms_map.put(cmsCon.getCID(), cmsCon);
+        }
+
+        cmsConList.clear();
+
+        try{
+            Object obj = parser.parse(new FileReader("/svc/smartDelivery/was/downloadData/" + file_name));
+            Map<String, Object> objMap = (Map<String, Object>)obj;
+
+            List<Map<String, Object>> objList = (ArrayList<Map<String, Object>>)objMap.get("c2c");
+            String con_id;
+//            String m_id;
+            String rel_id;
+            CmsCon tempCmsCon;
+            for(Map<String, Object> tempMap : objList){
+                conList = new ArrayList<>();
+                con_id = (String)tempMap.get("id_contents");
+//                m_id = ((CmsCon)vcms_map.get(con_id)).getMID();
+
+                for(Map<String, Object> tempSubMap : (List<Map<String, Object>>)tempMap.get("contents")){
+                    sub_map = new WeakHashMap<>();
+                    rel_id = (String)tempSubMap.get("id_contents");
+                    tempCmsCon = (CmsCon)vcms_map.get(rel_id);
+                    if(tempCmsCon != null) {
+                        sub_map.put("id_contents", tempSubMap.get("id_contents"));
+                        sub_map.put("score", tempSubMap.get("score"));
+                        sub_map.put("title", tempCmsCon.getTitle());
+                        conList.add(sub_map);
+                    }
+                }
+                result_map.put(con_id, conList);
+            }
+            result_map.put("result", "ok");
+        }catch(Exception e){
+            e.printStackTrace();
+            result_map.put("result", "fail");
+        }finally {
+            vcms_map.clear();
+        }
         return result_map;
     }
 
@@ -140,4 +199,5 @@ public class MainServiceImpl implements MainService {
             logger.info("smdRelCon : " + smdRelCon.getCID() + " : " + smdRelCon.getRID() + " : " + smdRelCon.getFgCd() + " : " + smdRelCon.getRelScore());
         }
     }
+
 }

@@ -19,10 +19,6 @@ public class SmdRelCon implements Serializable{
         private String REL_CNTS_ID;
     }
 
-//    @Id
-//    @GeneratedValue(strategy= GenerationType.AUTO)
-//    private String ID_CONTENTS;
-//    private String REL_CNTS_ID;
     @Column
     private String REL_FG_CD;
     @Column
