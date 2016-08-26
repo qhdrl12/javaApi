@@ -128,7 +128,8 @@ public class MainServiceImpl implements MainService {
     @Override
     public Map<String, Object> searchSkpRef(String file_name, String id) {
         Map<String, Object> result_map = new WeakHashMap<>();
-        Map<String, Object> vcms_map = new WeakHashMap<>();
+        Map<String, Object> ref_map = new HashMap<>();
+        Map<String, Object> vcms_map = new HashMap<>();
         Map<String, Object> sub_map;
 
         List<Map<String, Object>> conList;
@@ -155,16 +156,14 @@ public class MainServiceImpl implements MainService {
 
             List<Map<String, Object>> objList = (ArrayList<Map<String, Object>>)objMap.get("c2c");
             String con_id;
-//            String m_id;
             String rel_id;
             CmsCon tempCmsCon;
             for(Map<String, Object> tempMap : objList){
                 conList = new ArrayList<>();
                 con_id = (String)tempMap.get("id_contents");
-//                m_id = ((CmsCon)vcms_map.get(con_id)).getMID();
 
                 for(Map<String, Object> tempSubMap : (List<Map<String, Object>>)tempMap.get("contents")){
-                    sub_map = new WeakHashMap<>();
+                    sub_map = new HashMap<>();
                     rel_id = (String)tempSubMap.get("id_contents");
                     tempCmsCon = (CmsCon)vcms_map.get(rel_id);
                     if(tempCmsCon != null) {
@@ -174,13 +173,19 @@ public class MainServiceImpl implements MainService {
                         conList.add(sub_map);
                     }
                 }
-                result_map.put(con_id, conList);
+                ref_map.put(con_id, conList);
+
+//                redisService.hset("skpMovieRef", con_id, conList);
             }
+            redisService.hmset("skpMovieRef", ref_map);
+
+            result_map.put("size", ref_map.size());
             result_map.put("result", "ok");
         }catch(Exception e){
             e.printStackTrace();
             result_map.put("result", "fail");
         }finally {
+            ref_map.clear();
             vcms_map.clear();
         }
         return result_map;

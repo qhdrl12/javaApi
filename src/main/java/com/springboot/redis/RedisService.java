@@ -6,6 +6,8 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 /**
  * Created by ibong-gi on 2016. 8. 10..
  */
@@ -45,5 +47,13 @@ public class RedisService{
             System.out.println("(bHget)can't find this key : " + key);
         }
         return null;
+    }
+
+    public void hset(String key, String field, Object data){
+        redisTemplate.<String, Object>opsForHash().put(key, field, data);
+    }
+
+    public void hmset(String key, Map<String, Object> data){
+        redisTemplate.opsForHash().putAll(key, data);
     }
 }

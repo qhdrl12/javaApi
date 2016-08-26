@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
 
@@ -51,17 +52,27 @@ public class MainController {
     }
 
     @RequestMapping(value="/searchSkpRef")
-    public String searchSkpRef(Model model,
+    public ModelAndView searchSkpRef(
+//    public String searchSkpRef(Model model,
                                @RequestParam(value = "file_name", required = false) String file_name,
                                @RequestParam(value = "id", required = false) String id){
         System.out.println(file_name);
 
         Map<String, Object> result = mainService.searchSkpRef(file_name, id);
 
-        result.remove("result");
+//        result.remove("result");
+//        model.addAttribute("result", result);
 
-        model.addAttribute("result", result);
-
-        return "view";
+        return new ModelAndView("json", "xResult", result);
     }
+
+
+//    @RequestMapping(value = "/allSkpDrama")
+//    public ModelAndView dramaContentForSKP() {
+//        Map<String, Object> result = new WeakHashMap<String, Object>();
+//        result.put("drama_data", deliverySvc.getFullSKP(Common.CMS_DRAMA, Common.META_DRAMA, ""));
+//
+//        return new ModelAndView("json", "xResult", result);
+//    }
+
 }
