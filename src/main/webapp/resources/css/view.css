@@ -1,0 +1,39 @@
+#rel_table{
+    font-family: "Lato", "sans-serif";
+}
+
+#rel_table tr th{
+    padding: 1em;
+    background: #e8503a;
+    color: white;
+}
+
+#rel_table tr{
+    height: 1em;
+}
+
+#rel_table tr:nth-child(even){
+    background-color: #eee;
+}
+
+#rel_table tr:nth-child(odd){
+    background-color: #fff;
+}
+
+#rel_table #header_cid{
+    width : 280px;
+}
+#rel_table #header_score{
+    width : 80px;
+}
+#rel_table #header_title{
+    width : 200px;
+}
+#rel_table #header_rid{
+    width : 280px;
+}
+
+#rel_table td{
+    text-align: center;
+    padding: 1em;
+}
